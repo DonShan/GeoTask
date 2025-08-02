@@ -33,7 +33,7 @@ public struct ReusableTextField: View {
             Text(label)
                 .font(AppFonts.shared.bodyMedium)
                 .fontWeight(.medium)
-                .foregroundColor(AppColors.shared.grey80)
+                .foregroundColor(AppColors.shared.black)
             
             Group {
                 if isSecure {
@@ -46,7 +46,7 @@ public struct ReusableTextField: View {
             .foregroundColor(AppColors.shared.black)
             .padding(.horizontal, 16)
             .padding(.vertical, 14)
-            .background(text.isEmpty ? Color(hex: "#F9F9FB") : Color(hex: "#E4E4E6"))
+            .background(text.isEmpty ? AppColors.shared.whiteShades98 : AppColors.shared.whiteShades90)
             .overlay(
                 RoundedRectangle(cornerRadius: cornerRadius)
                     .stroke(isFocused ? AppColors.shared.black : Color.clear, lineWidth: isFocused ? 2 : 0)
@@ -92,14 +92,14 @@ public struct ReusableTextArea: View {
             Text(label)
                 .font(AppFonts.shared.bodyMedium)
                 .fontWeight(.medium)
-                .foregroundColor(AppColors.shared.grey80)
+                .foregroundColor(AppColors.shared.black)
             
             TextEditor(text: $text)
                 .font(AppFonts.shared.bodyMedium)
                 .foregroundColor(AppColors.shared.black)
                 .padding(.horizontal, 16)
                 .padding(.vertical, 14)
-                .background(text.isEmpty ? Color(hex: "#F9F9FB") : Color(hex: "#E4E4E6"))
+                .background(text.isEmpty ? AppColors.shared.whiteShades98 : AppColors.shared.whiteShades90)
                 .overlay(
                     RoundedRectangle(cornerRadius: cornerRadius)
                         .stroke(isFocused ? AppColors.shared.black : Color.clear, lineWidth: isFocused ? 2 : 0)
@@ -117,7 +117,7 @@ public struct ReusableTextArea: View {
                                 HStack {
                                     Text(placeholder)
                                         .font(AppFonts.shared.bodyMedium)
-                                        .foregroundColor(AppColors.shared.grey60)
+                                        .foregroundColor(AppColors.shared.whiteShades90)
                                         .padding(.horizontal, 20)
                                         .padding(.vertical, 18)
                                     Spacer()
@@ -149,9 +149,9 @@ public struct ReusableSearchField: View {
     
     public var body: some View {
         HStack(spacing: 12) {
-            Image(systemName: AppImages.shared.search)
+            Image(systemName: "magnifyingglass")
                 .font(.system(size: 16, weight: .medium))
-                .foregroundColor(isFocused ? AppColors.shared.black : AppColors.shared.grey60)
+                .foregroundColor(isFocused ? AppColors.shared.black : AppColors.shared.whiteShades90)
             
             TextField(placeholder, text: $text)
                 .font(AppFonts.shared.bodyMedium)
@@ -167,13 +167,13 @@ public struct ReusableSearchField: View {
                 }) {
                     Image(systemName: "xmark.circle.fill")
                         .font(.system(size: 16))
-                        .foregroundColor(AppColors.shared.grey60)
+                        .foregroundColor(AppColors.shared.whiteShades90)
                 }
             }
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 12)
-        .background(text.isEmpty ? Color(hex: "#F9F9FB") : Color(hex: "#E4E4E6"))
+        .background(text.isEmpty ? AppColors.shared.whiteShades98 : AppColors.shared.whiteShades90)
         .overlay(
             RoundedRectangle(cornerRadius: 12)
                 .stroke(isFocused ? AppColors.shared.black : Color.clear, lineWidth: isFocused ? 2 : 0)
@@ -263,5 +263,5 @@ public struct ReusableFormSection: View {
         }
         .padding()
     }
-    .background(AppColors.shared.background)
+    .background(AppColors.shared.white)
 } 

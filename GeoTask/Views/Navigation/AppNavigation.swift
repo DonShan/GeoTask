@@ -16,7 +16,7 @@ class AppNavigationCoordinator: ObservableObject {
     @Published var navigationPath = NavigationPath()
     @Published var presentedSheet: AppRoute?
     @Published var presentedFullScreenCover: AppRoute?
-
+    
     func navigate(to route: AppRoute) {
         navigationPath.append(route)
     }
@@ -52,24 +52,27 @@ struct AppNavigationView: View {
     var body: some View {
         NavigationStack(path: $coordinator.navigationPath) {
             ContentView()
+                .environmentObject(coordinator)
                 .navigationDestination(for: AppRoute.self) { route in
                     destinationView(for: route)
-                }
-                .sheet(item: $coordinator.presentedSheet) { route in
-                    sheetView(for: route)
-                }
-                .fullScreenCover(item: $coordinator.presentedFullScreenCover) { route in
-                    fullScreenView(for: route)
+                        .environmentObject(coordinator)
                 }
         }
-        .environmentObject(coordinator)
+        .sheet(item: $coordinator.presentedSheet) { route in
+            sheetView(for: route)
+                .environmentObject(coordinator)
+        }
+        .fullScreenCover(item: $coordinator.presentedFullScreenCover) { route in
+            fullScreenView(for: route)
+                .environmentObject(coordinator)
+        }
     }
     
     @ViewBuilder
     private func destinationView(for route: AppRoute) -> some View {
         switch route {
         case .home:
-            ContentView()
+            placeholderView(title: "Home")
         case .taskList:
             placeholderView(title: "Task List")
         case .taskDetail(let task):
@@ -90,22 +93,44 @@ struct AppNavigationView: View {
     @ViewBuilder
     private func sheetView(for route: AppRoute) -> some View {
         switch route {
+        case .home:
+            placeholderSheetView(title: "Home Sheet")
+        case .taskList:
+            placeholderSheetView(title: "Task List Sheet")
+        case .taskDetail(let task):
+            placeholderSheetView(title: "Task Detail Sheet: \(task.title)")
         case .createTask:
-            placeholderSheetView(title: "Create Task")
+            placeholderSheetView(title: "Create Task Sheet")
+        case .settings:
+            placeholderSheetView(title: "Settings Sheet")
+        case .profile:
+            placeholderSheetView(title: "Profile Sheet")
+        case .map:
+            placeholderSheetView(title: "Map Sheet")
         case .locationPicker:
-            placeholderSheetView(title: "Location Picker")
-        default:
-            EmptyView()
+            placeholderSheetView(title: "Location Picker Sheet")
         }
     }
     
     @ViewBuilder
     private func fullScreenView(for route: AppRoute) -> some View {
         switch route {
+        case .home:
+            placeholderFullScreenView(title: "Home Full Screen")
+        case .taskList:
+            placeholderFullScreenView(title: "Task List Full Screen")
+        case .taskDetail(let task):
+            placeholderFullScreenView(title: "Task Detail Full Screen: \(task.title)")
+        case .createTask:
+            placeholderFullScreenView(title: "Create Task Full Screen")
+        case .settings:
+            placeholderFullScreenView(title: "Settings Full Screen")
+        case .profile:
+            placeholderFullScreenView(title: "Profile Full Screen")
         case .map:
-            placeholderFullScreenView(title: "Map")
-        default:
-            EmptyView()
+            placeholderFullScreenView(title: "Map Full Screen")
+        case .locationPicker:
+            placeholderFullScreenView(title: "Location Picker Full Screen")
         }
     }
 }
@@ -120,34 +145,29 @@ struct placeholderView: View {
                 .font(.title)
                 .fontWeight(.bold)
             
-            Text("This is a placeholder view for navigation testing")
+            Text("This is a placeholder view")
                 .font(.subheadline)
                 .foregroundColor(.secondary)
-                .multilineTextAlignment(.center)
             
-            LazyVStack(spacing: 12) {
-                PrimaryNavigationButton(title: "Navigate to Task List") {
+            VStack(spacing: 12) {
+                ReusableButton(title: "Navigate to Task List") {
                     coordinator.navigate(to: .taskList)
                 }
                 
-                SecondaryNavigationButton(title: "Present Create Task") {
-                    NavigationHelper.presentCreateTask(coordinator: coordinator)
+                ReusableButton(title: "Navigate to Settings") {
+                    coordinator.navigate(to: .settings)
                 }
                 
-                SecondaryNavigationButton(title: "Present Map") {
-                    NavigationHelper.presentMap(coordinator: coordinator)
-                }
-                
-                SecondaryNavigationButton(title: "Go Back") {
-                    coordinator.navigateBack()
+                ReusableButton(title: "Navigate to Profile") {
+                    coordinator.navigate(to: .profile)
                 }
             }
+            
+            Spacer()
         }
         .padding()
-        .withBaseNavigation(
-            title: title,
-            showBackButton: true
-        )
+        .navigationTitle(title)
+        .navigationBarTitleDisplayMode(.large)
     }
 }
 
@@ -179,7 +199,7 @@ struct placeholderSheetView: View {
                     .font(.subheadline)
                     .foregroundColor(.secondary)
                 
-                PrimaryNavigationButton(title: "Dismiss") {
+                ReusableButton(title: "Dismiss") {
                     coordinator.dismissSheet()
                 }
                 
@@ -211,7 +231,7 @@ struct placeholderFullScreenView: View {
                     .font(.subheadline)
                     .foregroundColor(.secondary)
                 
-                PrimaryNavigationButton(title: "Dismiss") {
+                ReusableButton(title: "Dismiss") {
                     coordinator.dismissFullScreenCover()
                 }
             }
@@ -234,7 +254,6 @@ extension AppRoute: Identifiable {
         }
     }
 }
-
 
 struct NavigationHelper {
     static func navigateToTaskDetail(_ task: Task, coordinator: AppNavigationCoordinator) {

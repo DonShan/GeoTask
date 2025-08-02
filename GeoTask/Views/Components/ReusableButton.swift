@@ -99,7 +99,7 @@ public struct ReusableOutlinedButton: View {
         title: String,
         backgroundColor: Color = AppColors.shared.white,
         textColor: Color = AppColors.shared.black,
-        borderColor: Color = AppColors.shared.grey60,
+        borderColor: Color = AppColors.shared.whiteShades90,
         borderWidth: CGFloat = 1,
         cornerRadius: CGFloat = 12,
         action: @escaping () -> Void
@@ -228,7 +228,7 @@ public struct ReusableSmallOutlinedButton: View {
         title: String,
         backgroundColor: Color = AppColors.shared.white,
         textColor: Color = AppColors.shared.black,
-        borderColor: Color = AppColors.shared.grey60,
+        borderColor: Color = AppColors.shared.whiteShades90,
         borderWidth: CGFloat = 1,
         cornerRadius: CGFloat = 8,
         action: @escaping () -> Void
@@ -283,7 +283,7 @@ public struct ReusableSmallOutlinedButton: View {
         
         ReusableButton(
             title: "Custom Button",
-            backgroundColor: AppColors.shared.green,
+            backgroundColor: AppColors.shared.alertGreen,
             textColor: AppColors.shared.white
         ) {
             print("Custom button tapped")
@@ -292,16 +292,16 @@ public struct ReusableSmallOutlinedButton: View {
         ReusableOutlinedButton(
             title: "Custom Outlined",
             backgroundColor: AppColors.shared.white,
-            textColor: AppColors.shared.red,
-            borderColor: AppColors.shared.red
+            textColor: AppColors.shared.alertRed,
+            borderColor: AppColors.shared.alertRed
         ) {
             print("Custom outlined tapped")
         }
         
         ReusableIconButton(
             title: "Add Item",
-            iconName: AppImages.shared.add,
-            backgroundColor: AppColors.shared.blue
+            iconName: "plus",
+            backgroundColor: AppColors.shared.alertYellow
         ) {
             print("Add item tapped")
         }
@@ -309,7 +309,7 @@ public struct ReusableSmallOutlinedButton: View {
         ReusableActionButton(
             title: "Send Message",
             iconName: "paperplane",
-            backgroundColor: AppColors.shared.green,
+            backgroundColor: AppColors.shared.alertGreen,
             textColor: AppColors.shared.white
         ) {
             print("Send message tapped")
@@ -317,7 +317,7 @@ public struct ReusableSmallOutlinedButton: View {
         
         ReusableSmallButton(
             title: "Small Button",
-            backgroundColor: AppColors.shared.grey90
+            backgroundColor: AppColors.shared.black
         ) {
             print("Small button tapped")
         }
@@ -325,7 +325,7 @@ public struct ReusableSmallOutlinedButton: View {
         ReusableSmallOutlinedButton(
             title: "Small Outlined",
             backgroundColor: AppColors.shared.white,
-            textColor: AppColors.shared.grey90
+            textColor: AppColors.shared.black
         ) {
             print("Small outlined tapped")
         }

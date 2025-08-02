@@ -170,33 +170,38 @@ extension View {
 extension ToolbarItem {
     static func addButton(action: @escaping () -> Void) -> ToolbarItem {
         ToolbarItem(placement: .navigationBarTrailing) {
-            NavigationBarButton(systemName: DesignSystemIcons.shared.add) {
-                action()
-            }
+            NavigationBarButton(
+                icon: DesignSystemIcons.shared.add,
+                action: action
+            )
         }
     }
     
     static func editButton(action: @escaping () -> Void) -> ToolbarItem {
         ToolbarItem(placement: .navigationBarTrailing) {
-            NavigationBarButton(systemName: DesignSystemIcons.shared.edit) {
-                action()
-            }
+            NavigationBarButton(
+                icon: DesignSystemIcons.shared.edit,
+                action: action
+            )
         }
     }
     
     static func deleteButton(action: @escaping () -> Void) -> ToolbarItem {
         ToolbarItem(placement: .navigationBarTrailing) {
-            NavigationBarButton(systemName: DesignSystemIcons.shared.delete, color: DesignSystemColors.shared.red) {
-                action()
-            }
+            NavigationBarButton(
+                icon: DesignSystemIcons.shared.delete,
+                iconColor: DesignSystemColors.shared.red,
+                action: action
+            )
         }
     }
     
     static func saveButton(action: @escaping () -> Void) -> ToolbarItem {
         ToolbarItem(placement: .navigationBarTrailing) {
-            NavigationBarButton(systemName: DesignSystemIcons.shared.save) {
-                action()
-            }
+            NavigationBarButton(
+                icon: DesignSystemIcons.shared.save,
+                action: action
+            )
         }
     }
 } 
