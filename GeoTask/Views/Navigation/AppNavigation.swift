@@ -4,7 +4,7 @@ import Combine
 enum AppRoute: Hashable {
     case home
     case taskList
-    case taskDetail(Task)
+    case taskDetail(GeoTask)
     case createTask
     case settings
     case profile
@@ -256,7 +256,7 @@ extension AppRoute: Identifiable {
 }
 
 struct NavigationHelper {
-    static func navigateToTaskDetail(_ task: Task, coordinator: AppNavigationCoordinator) {
+    static func navigateToTaskDetail(_ task: GeoTask, coordinator: AppNavigationCoordinator) {
         coordinator.navigate(to: .taskDetail(task))
     }
     

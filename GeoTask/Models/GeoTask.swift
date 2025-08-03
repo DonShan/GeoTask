@@ -1,25 +1,25 @@
 import Foundation
 import CoreLocation
 
-struct Task: Identifiable, Hashable, Codable {
-    let id: UUID
-    var title: String
-    var description: String
-    var isCompleted: Bool
-    var priority: TaskPriority
-    var dueDate: Date?
-    var location: TaskLocation?
-    var createdAt: Date
-    var updatedAt: Date
+public struct GeoTask: Identifiable, Hashable, Codable {
+    public let id: UUID
+    public var title: String
+    public var description: String
+    public var isCompleted: Bool
+    public var priority: GeoTaskPriority
+    public var dueDate: Date?
+    public var location: GeoTaskLocation?
+    public var createdAt: Date
+    public var updatedAt: Date
     
-    init(
+    public init(
         id: UUID = UUID(),
         title: String,
         description: String = "",
         isCompleted: Bool = false,
-        priority: TaskPriority = .medium,
+        priority: GeoTaskPriority = .medium,
         dueDate: Date? = nil,
-        location: TaskLocation? = nil,
+        location: GeoTaskLocation? = nil,
         createdAt: Date = Date(),
         updatedAt: Date = Date()
     ) {
@@ -35,13 +35,13 @@ struct Task: Identifiable, Hashable, Codable {
     }
 }
 
-enum TaskPriority: String, CaseIterable, Codable {
+public enum GeoTaskPriority: String, CaseIterable, Codable {
     case low = "low"
     case medium = "medium"
     case high = "high"
     case urgent = "urgent"
     
-    var displayName: String {
+    public var displayName: String {
         switch self {
         case .low: return "Low"
         case .medium: return "Medium"
@@ -50,7 +50,7 @@ enum TaskPriority: String, CaseIterable, Codable {
         }
     }
     
-    var color: String {
+    public var color: String {
         switch self {
         case .low: return "green"
         case .medium: return "blue"
@@ -60,24 +60,24 @@ enum TaskPriority: String, CaseIterable, Codable {
     }
 }
 
-struct TaskLocation: Hashable, Codable {
-    let latitude: Double
-    let longitude: Double
-    let address: String?
-    let name: String?
+public struct GeoTaskLocation: Hashable, Codable {
+    public let latitude: Double
+    public let longitude: Double
+    public let address: String?
+    public let name: String?
     
-    var coordinate: CLLocationCoordinate2D {
+    public var coordinate: CLLocationCoordinate2D {
         CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
     }
     
-    init(latitude: Double, longitude: Double, address: String? = nil, name: String? = nil) {
+    public init(latitude: Double, longitude: Double, address: String? = nil, name: String? = nil) {
         self.latitude = latitude
         self.longitude = longitude
         self.address = address
         self.name = name
     }
     
-    init(coordinate: CLLocationCoordinate2D, address: String? = nil, name: String? = nil) {
+    public init(coordinate: CLLocationCoordinate2D, address: String? = nil, name: String? = nil) {
         self.latitude = coordinate.latitude
         self.longitude = coordinate.longitude
         self.address = address
